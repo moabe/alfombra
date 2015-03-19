@@ -24,7 +24,11 @@ sys.argv[1:] = [SIMULATOR_IP]
 #sys.argv[1:] = ["192.168.2.3"] 
 
 
-current_color = "black"#set start color
+current_color = "black"
+
+show_tag_scanned = False
+
+#set start color
 
 class MyWebserver(threading.Thread):
 
@@ -47,64 +51,57 @@ class MyWebserver(threading.Thread):
         web.header('Access-Control-Allow-Credentials', 'true')
 
         global current_color
+        global  show_tag_scanned
 
 
         if dirr == 'view':
-            #return json.dumps(current_color)
 
-            return current_color
+            obj = {
+               'color': current_color, 'show': show_tag_scanned
+            }
 
 
-        if dirr == 'tag/magenta':
+            return json.dumps(obj)
 
-            current_color = "magenta"
 
-            return "<html><body bgcolor='magenta'></body></html>"
 
         if dirr == 'tag/yellow':
+
+            show_tag_scanned = False
 
             current_color = "#E4E6AE"
 
             return "<html><body bgcolor='#E4E6AE'></body></html>"
         if dirr == 'tag/green':
+            show_tag_scanned = False
 
             current_color = "#99DB9F"
 
             return "<html><body bgcolor='#99DB9F'></body></html>"
 
         if dirr == 'tag/blue':
+            show_tag_scanned = False
 
             current_color = "#A6D3DD"
 
             return "<html><body bgcolor='#A6D3DD'></body></html>"
 
         if dirr == 'tag/pink':
+            show_tag_scanned = False
 
             current_color = "#EDC8CE"
 
             return "<html><body bgcolor='#EDC8CE'></body></html>"
 
+        if dirr == 'tag/dump':
 
-        elif dirr =='tag/katt':
-            print "hej ehej "
+            show_tag_scanned = True
 
-            obj = {
-               'figur': 'katt'
-            }
-            return json.dumps(obj)
+            return "<html><body bgcolor='"+ current_color +"'></body></html>"
+
+
+
 
 
 
 MyWebserver().start()
-
-
-'''if dirr == 'tag/katt':
-            print "Katt!"
-
-            obj = {
-               'figur': 'katt'
-            };
-            str = json.dumps(obj)
-
-            #str = '<html><body><img src="http://testing.jonae.nu/wp-content/uploads/2014/06/katt-orange.jpg"></body></html>';
-'''

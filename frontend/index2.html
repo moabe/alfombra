@@ -16,12 +16,6 @@
 
 
         <script>
-            $(document).ready(function(){
-                $("body").css("background-color", "yellow" );
-            });
-
-            var color;
-
 
             function loadXMLDoc() {
                 var xmlhttp;
@@ -34,11 +28,12 @@
                 xmlhttp.onreadystatechange=function() {
                     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
                         //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-                        color = xmlhttp.responseText;
-                        var obj = JSON.parse(color);
+                        var text = xmlhttp.responseText;
 
-                        $("body").css("background-color", obj.color)
-
+                        var obj = JSON.parse(text);
+                        if(obj.show){
+                            $("body").css("background-color", obj.color)
+                        }
                     }
                 }
                 xmlhttp.open("GET","http://192.168.1.2:8080/view",true);
