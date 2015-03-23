@@ -1,6 +1,5 @@
 <html>
     <head>
-
         <script src="https://code.jquery.com/jquery.js"></script>
         <style>
             body{
@@ -10,76 +9,28 @@
             div.row{
                 width: 100%;
                 height: 33%;
-
             }
-
             div.square{
                 width: 20%;
                 height: 100%;
                 float: left;
             }
-
         </style>
-
-
-
     </head>
+
     <body>
-
         <div id="matta"></div>
-
-
         <script>
-
-            var mattan = document.getElementById( "matta" );
-
-            for (var i =0; i<3; i++){
-                var squareRow = $("div");
+            for ( var i = 0 ; i < 3 ; i++){
+                var squareRow = $("<div>");
                 squareRow.addClass("row");
-                for (var j=0 ; j<5;j++ )
-                {
-                    var square = $("div");
-                    square.addClass("row");
+                for (var j = 0 ; j <5; j++){
+                    var square = $("<div>");
+                    square.addClass("square");
                     squareRow.append(square);
                 }
-
-                 mattan.append(squareRow);
-
-
+                $("#matta").append(squareRow);
             }
-
-
-
-
-
-            /*        <div class="row">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-        </div>
-            <div class="row">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-        </div>
-        <div class="row">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-        </div>*/
-
-
         </script>
-
-
-
-
     </body>
 </html>
-
