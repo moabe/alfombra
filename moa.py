@@ -51,31 +51,67 @@ class MyWebserver(threading.Thread):
         web.header('Access-Control-Allow-Credentials', 'true')
 
         global current_color
-        global  show_tag_scanned
+        global show_tag_scanned
+        #global phones
 
+        phones = {"phones": [
+            {"ip":"1", "pearls":[
+                {"color": "blue", "pos":"22"},
+                {"color": "blue", "pos":"33"}
+            ]}
+        ]}
+
+
+
+        #print json.dumps(phones, sort_keys=True, indent=4, separators=(',', ': '))
 
         if dirr == 'view':
 
-            obj = {
-               'color': current_color, 'show': show_tag_scanned
-            }
+            return json.dumps(phones)
+
+        # if dirr == 'tag/yellow':
+        #
+        #     show_tag_scanned = False
+        #
+        #     current_color = "#E4E6AE"
+        #
+        #     yel = "#E4E6AE"
+        #
+        #     ip = web.ctx['ip']
+        #
+        #     ip= str(ip[-1])
+        #
+        #     #phone = {"ip":ip,"pearls":[
+        #     #    {"color" : yel , "pos" : ""}
+        #     #]}
+        #     phones['phones']['ip']=ip
 
 
-            return json.dumps(obj)
 
 
+        #    return "<html><body bgcolor='#E4E6AE'></body></html>"
 
-        if dirr == 'tag/yellow':
 
-            show_tag_scanned = False
-
-            current_color = "#E4E6AE"
-
-            return "<html><body bgcolor='#E4E6AE'></body></html>"
         if dirr == 'tag/green':
             show_tag_scanned = False
 
             current_color = "#99DB9F"
+
+            yel = "#E4E6AE"
+
+            ip = web.ctx['ip']
+
+            ip= str(ip[-1])
+
+            #phone = {"ip":ip,"pearls":[
+            #    {"color" : yel , "pos" : ""}
+            #]}
+            phones['phones']['ip2']=7
+
+            print phones
+
+
+
 
             return "<html><body bgcolor='#99DB9F'></body></html>"
 
@@ -101,8 +137,5 @@ class MyWebserver(threading.Thread):
 
 
 
-
-
-
-
 MyWebserver().start()
+

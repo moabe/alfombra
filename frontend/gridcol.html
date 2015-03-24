@@ -2,9 +2,6 @@
     <head>
         <script src="https://code.jquery.com/jquery.js"></script>
         <style>
-            body{
-                background-color : magenta
-            }
             
             div.row{
                 width: 100%;
@@ -21,16 +18,84 @@
     <body>
         <div id="matta"></div>
         <script>
-            for ( var i = 0 ; i < 3 ; i++){
+
+            var hej = "heeeeeej HEEEJ HEJEJHEJEHJEHJ";
+            var hej2 = "hej hej"
+
+          for ( var i = 0 ; i < 3 ; i++){
                 var squareRow = $("<div>");
                 squareRow.addClass("row");
                 for (var j = 0 ; j <5; j++){
                     var square = $("<div>");
                     square.addClass("square");
                     squareRow.append(square);
+                    var r = (String(i+1));
+                    var c = (String(j+1));
+                    var pos = r+c;
+                    //console.log(pos);
+                    square.attr("id", pos);
                 }
                 $("#matta").append(squareRow);
             }
+
+
+
+
+            function loadXMLDoc() {
+                var xmlhttp;
+                if (window.XMLHttpRequest){
+                    xmlhttp=new XMLHttpRequest();// code for IE7+, Firefox, Chrome, Opera, Safari
+                }
+                else {
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");// code for IE6, IE5
+                }
+                xmlhttp.onreadystatechange=function() {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                        //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+                        var text = xmlhttp.responseText;
+                        //var text = '{"phones": [ {"ip":"1", "pearls":[{"color": "blue", "pos":"22"}]}]}';
+                        var obj = JSON.parse(text);
+                        console.log(obj.phones[0].ip);
+
+                        for(var i= 0; i<obj.phones.length ; i++ ){
+                            for ( var j = 0; j<obj.phones[i].pearls.length; j++ ){
+                                var pos =  "#" + obj.phones[i].pearls[j].pos;
+                                console.log(pos);
+                                $(pos).css("background-color", obj.phones[i].pearls[j].color)
+                            }
+
+
+
+                        }
+
+                        //console.log(obj.phones[0].pearls[0].position);
+
+                    }
+                }
+                xmlhttp.open("GET","http://192.168.1.2:8080/view",true);
+                xmlhttp.send();
+            }
+
+
+            loadXMLDoc();
+
+
+
+
+
+
+
+
+            /*setInterval(function(){
+                loadXMLDoc() // this will run after every 50 times per seconds
+            }, 20);
+            */
+
+
+
         </script>
+
+
+
     </body>
 </html>
