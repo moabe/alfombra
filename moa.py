@@ -52,14 +52,17 @@ class MyWebserver(threading.Thread):
 
         global current_color
         global show_tag_scanned
-        #global phones
+        global phoneList
+        global phones
 
-        phones = {"phones": [
-            {"ip":"1", "pearls":[
-                {"color": "blue", "pos":"22"},
-                {"color": "blue", "pos":"33"}
-            ]}
-        ]}
+
+
+        phoneList = []
+        print phoneList
+        phoneList.append("hej")
+
+
+        phones = {"phones": phoneList}
 
 
 
@@ -69,33 +72,12 @@ class MyWebserver(threading.Thread):
 
             return json.dumps(phones)
 
-        # if dirr == 'tag/yellow':
-        #
-        #     show_tag_scanned = False
-        #
-        #     current_color = "#E4E6AE"
-        #
-        #     yel = "#E4E6AE"
-        #
-        #     ip = web.ctx['ip']
-        #
-        #     ip= str(ip[-1])
-        #
-        #     #phone = {"ip":ip,"pearls":[
-        #     #    {"color" : yel , "pos" : ""}
-        #     #]}
-        #     phones['phones']['ip']=ip
+        if dirr == 'tag/yellow':
 
 
-
-
-        #    return "<html><body bgcolor='#E4E6AE'></body></html>"
-
-
-        if dirr == 'tag/green':
             show_tag_scanned = False
 
-            current_color = "#99DB9F"
+            current_color = "#E4E6AE"
 
             yel = "#E4E6AE"
 
@@ -103,15 +85,34 @@ class MyWebserver(threading.Thread):
 
             ip= str(ip[-1])
 
-            #phone = {"ip":ip,"pearls":[
-            #    {"color" : yel , "pos" : ""}
-            #]}
-            phones['phones']['ip2']=7
 
-            print phones
+            pearlsList = []
+
+            pearlDict = {"color":yel, "position": "32"}
+
+            pearlsList.append(pearlDict)
+
+            phoneDict = { "ip" : ip, "pearls" : pearlsList }
+
+            phoneList.append("hrj")
 
 
 
+
+            return "<html><body bgcolor='#E4E6AE'></body></html>"
+
+
+
+
+
+
+
+
+
+        if dirr == 'tag/green':
+            show_tag_scanned = False
+
+            current_color = "#99DB9F"
 
             return "<html><body bgcolor='#99DB9F'></body></html>"
 

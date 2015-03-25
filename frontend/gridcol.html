@@ -53,7 +53,6 @@
                     if (xmlhttp.readyState==4 && xmlhttp.status==200) {
                         //document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
                         var text = xmlhttp.responseText;
-                        //var text = '{"phones": [ {"ip":"1", "pearls":[{"color": "blue", "pos":"22"}]}]}';
                         var obj = JSON.parse(text);
                         console.log(obj.phones[0].ip);
 
