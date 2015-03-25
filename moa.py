@@ -2,6 +2,7 @@ import web, sys
 import threading
 import json
 import platform
+import random
 
 #if platform.system() == "Windows":
 #SIMULATOR_IP = "127.0.0.1"
@@ -24,9 +25,12 @@ sys.argv[1:] = [SIMULATOR_IP]
 #sys.argv[1:] = ["192.168.2.3"] 
 
 
-current_color = "black"
+#current_color = "black"
 
 show_tag_scanned = False
+
+
+phoneList = []
 
 #set start color
 
@@ -50,16 +54,14 @@ class MyWebserver(threading.Thread):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Credentials', 'true')
 
-        global current_color
+        #global current_color
         global show_tag_scanned
         global phoneList
         global phones
 
 
 
-        phoneList = []
-        print phoneList
-        phoneList.append("hej")
+
 
 
         phones = {"phones": phoneList}
@@ -67,6 +69,16 @@ class MyWebserver(threading.Thread):
 
 
         #print json.dumps(phones, sort_keys=True, indent=4, separators=(',', ': '))
+        if dirr[:3] == 'tag':
+            r = random.randint(1,3)
+
+            c = random.randint(1,5)
+
+            pos = str(r)+str(c)
+
+            ip = web.ctx['ip']
+
+            ip= str(ip[-1])
 
         if dirr == 'view':
 
@@ -74,27 +86,21 @@ class MyWebserver(threading.Thread):
 
         if dirr == 'tag/yellow':
 
-
             show_tag_scanned = False
 
             current_color = "#E4E6AE"
 
-            yel = "#E4E6AE"
-
-            ip = web.ctx['ip']
-
-            ip= str(ip[-1])
-
 
             pearlsList = []
 
-            pearlDict = {"color":yel, "position": "32"}
+
+            pearlDict = {"color":current_color, "pos": pos}
 
             pearlsList.append(pearlDict)
 
             phoneDict = { "ip" : ip, "pearls" : pearlsList }
 
-            phoneList.append("hrj")
+            phoneList.append(phoneDict)
 
 
 
@@ -114,6 +120,21 @@ class MyWebserver(threading.Thread):
 
             current_color = "#99DB9F"
 
+
+            pearlsList = []
+
+
+            pearlDict = {"color":current_color, "pos": pos}
+
+            pearlsList.append(pearlDict)
+
+            phoneDict = { "ip" : ip, "pearls" : pearlsList }
+
+
+            phoneList.append(phoneDict)
+
+
+
             return "<html><body bgcolor='#99DB9F'></body></html>"
 
         if dirr == 'tag/blue':
@@ -121,12 +142,36 @@ class MyWebserver(threading.Thread):
 
             current_color = "#A6D3DD"
 
+
+            pearlsList = []
+
+
+            pearlDict = {"color":current_color, "pos": pos}
+
+            pearlsList.append(pearlDict)
+
+            phoneDict = { "ip" : ip, "pearls" : pearlsList }
+
+            phoneList.append(phoneDict)
+
             return "<html><body bgcolor='#A6D3DD'></body></html>"
 
         if dirr == 'tag/pink':
             show_tag_scanned = False
 
             current_color = "#EDC8CE"
+
+
+            pearlsList = []
+
+
+            pearlDict = {"color":current_color, "pos": pos}
+
+            pearlsList.append(pearlDict)
+
+            phoneDict = { "ip" : ip, "pearls" : pearlsList }
+
+            phoneList.append(phoneDict)
 
             return "<html><body bgcolor='#EDC8CE'></body></html>"
 
