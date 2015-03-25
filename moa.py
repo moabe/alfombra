@@ -90,7 +90,6 @@ class MyWebserver(threading.Thread):
 
             current_color = "#E4E6AE"
 
-
             pearlsList = []
 
 
@@ -100,8 +99,8 @@ class MyWebserver(threading.Thread):
 
             phoneDict = { "ip" : ip, "pearls" : pearlsList }
 
-            phoneList.append(phoneDict)
 
+            phoneList.append(phoneDict)
 
 
 
@@ -182,6 +181,33 @@ class MyWebserver(threading.Thread):
             return "<html><body bgcolor='"+ current_color +"'></body></html>"
 
 
+    def ipNotInList(self, inum, pl):#maybe not use, realized I need another way of dealing with multiple phones.. maybe threads
+        iplist = []
+        for phone in pl:
+            iplist.append(phone["ip"])
+
+        if inum in iplist:
+            print "hej ip i listan redan"
+            return False
+        else:
+            return True
+
+
+
+
+
+
 
 MyWebserver().start()
+
+
+
+
+
+'''         if not phoneList:
+                print "phone list empty"
+                phoneList.append(phoneDict)
+            elif self.ipNotInList(ip, phoneList) == True:
+                phoneList.appens(phoneDict)
+            else:'''
 
