@@ -9,6 +9,7 @@ import random
 
 SIMULATOR_IP = "192.168.1.2"
 
+
 # else:
 #     SIMULATOR_IP = "10.42.0.1"
 
@@ -64,7 +65,7 @@ class MyWebserver(threading.Thread):
 
 
 
-        phones = {"phones": phoneList}
+        #phones = {"phones": phoneList}
 
 
 
@@ -82,10 +83,12 @@ class MyWebserver(threading.Thread):
 
         if dirr == 'view':
 
-            return json.dumps(phones)
+            color = {"color":current_color}
+
+            return json.dumps(color)
 
 
-        if dirr[:3] == 'pos':
+        '''if dirr[:3] == 'pos':
             pos = dirr[4:6]
             pos = str(pos)
 
@@ -108,7 +111,7 @@ class MyWebserver(threading.Thread):
 
             phoneList.append(phoneDict)
 
-            return "<html><body bgcolor="+ current_color +"></body></html>"
+            return "<html><body bgcolor="+ current_color +"></body></html>"'''
 
 
 
