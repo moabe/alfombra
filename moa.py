@@ -39,6 +39,9 @@ show_tag_scanned = False
 
 phoneList = []
 
+bugDict ={}
+
+
 #set start color
 
 class MyWebserver(threading.Thread):
@@ -73,6 +76,8 @@ class MyWebserver(threading.Thread):
         global data
 
 
+        global bugDict
+
 
 
 
@@ -99,35 +104,58 @@ class MyWebserver(threading.Thread):
 
 
 
+
+
+        if dirr[:3] == 'pos':
+            pos = dirr[4:6]
+
+            posInt = int(pos)
+
+            data = web.input()
+            bug = str(data.bug)
+            #{ "insect": "greenBeetle", "position": 11}
+
+            bugDict = {"insect":bug, "position": posInt}
+
+
+
+
+
+            #print bug, pos
+
+            new_bug = True
+
+            return "hej android"
+
+
+
         if dirr == 'view':
 
 
-            print (new_bug)
+
             if new_bug == False:
-                print "no"
                 return "no"
 
 
             if new_bug == True:
-                #old_current_color = current_color;
-                #color = {"color":current_color}
-
-                print "eeeelsee"
-
-                bug = data #{ "insect": "greenBeetle", "position": 11, 'behaviours': ["upDown", "rightLeft"]}
+                #bug = data #{ "insect": "greenBeetle", "position": 11, 'behaviours': ["upDown", "rightLeft"]}
 
                 new_bug = False
 
-                print json.dumps(bug)
-
-                return json.dumps(bug)
+                bugDict['behaviours'] = ["upDown"]
 
 
+                print json.dumps(bugDict)
+
+                return json.dumps(bugDict)
 
 
 
+MyWebserver().start()
 
-    def POST(self,dirr):
+
+
+''' def POST(self,dirr):
 
 
         web.header('Access-Control-Allow-Origin', '*')
@@ -144,12 +172,11 @@ class MyWebserver(threading.Thread):
 
             print new_bug
 
-            return "hej brevbarare"
+            return "hej brevbarare"'''
 
 
 
 
-MyWebserver().start()
 
 
 
