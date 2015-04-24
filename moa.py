@@ -37,7 +37,7 @@ new_bug = False
 show_tag_scanned = False
 
 
-phoneList = []
+behaveList= []
 
 bugDict ={}
 
@@ -67,25 +67,10 @@ class MyWebserver(threading.Thread):
         global current_color
         global old_current_color
         global show_tag_scanned
-        global phoneList
-        global phones
-
         global new_bug
-
-
         global data
-
-
         global bugDict
-
-
-
-
-
-
-
-        #phones = {"phones": phoneList}
-
+        global behaveList
 
 
 
@@ -104,8 +89,6 @@ class MyWebserver(threading.Thread):
 
 
 
-
-
         if dirr[:3] == 'pos':
             pos = dirr[4:6]
 
@@ -116,6 +99,10 @@ class MyWebserver(threading.Thread):
             #{ "insect": "greenBeetle", "position": 11}
 
             bugDict = {"insect":bug, "position": posInt}
+
+            behaveList = [data.behaviour]
+
+
 
 
 
@@ -142,7 +129,7 @@ class MyWebserver(threading.Thread):
 
                 new_bug = False
 
-                bugDict['behaviours'] = ["upDown"]
+                bugDict['behaviours'] = behaveList
 
 
                 print json.dumps(bugDict)
