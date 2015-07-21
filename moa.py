@@ -26,21 +26,15 @@ sys.argv[1:] = [SIMULATOR_IP]
 #sys.argv[1:] = ["192.168.2.3"] 
 
 
-current_color = "#000000"
-old_current_color = current_color;
-
 data = ""
 
 new_bug = False
 
-show_tag_scanned = False
 
 behaveList = []
 
 bugDict = {}
 
-
-#set start color
 
 class MyWebserver(threading.Thread):
     def run(self):
@@ -53,33 +47,15 @@ class MyWebserver(threading.Thread):
         print "gnu"
         app.run()
 
-
     def GET(self, dirr):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Credentials', 'true')
 
-        global current_color
-        global old_current_color
-        global show_tag_scanned
+
         global new_bug
         global data
         global bugDict
         global behaveList
-
-
-
-
-        #print json.dumps(phones, sort_keys=True, indent=4, separators=(',', ': '))
-        if dirr[:3] == 'tag':
-            #r = random.randint(1,3)
-
-            #c = random.randint(1,5)
-
-            #pos = str(r)+str(c)
-
-            ip = web.ctx['ip']
-
-            ip = str(ip[-1])
 
         if dirr[:3] == 'pos':
             pos = dirr[4:6]
@@ -88,11 +64,11 @@ class MyWebserver(threading.Thread):
 
             data = web.input()
             bug = str(data.bug)
-            #{ "insect": "greenBeetle", "position": 11}
+            # { "insect": "greenBeetle", "position": 11}
 
             bugDict = {"insect": bug, "position": posInt}
 
-            #take data.behaviour split on commas and make it into a list.
+            # take data.behaviour split on commas and make it into a list.
 
             print data.behaviour
 
@@ -101,6 +77,7 @@ class MyWebserver(threading.Thread):
 
             print behaveList
 
+            # check so I didn't just send position without bug
             if bug != "":
                 new_bug = True
 
@@ -108,48 +85,19 @@ class MyWebserver(threading.Thread):
 
         if dirr == 'view':
 
-
-            if new_bug == False:
+            if not new_bug:
                 return "no"
 
-            if new_bug == True:
-                #bug = data #{ "insect": "greenBeetle", "position": 11, 'behaviours': ["upDown", "rightLeft"]}
+            if new_bug:
+                # bug = data #{ "insect": "greenBeetle", "position": 11, 'behaviours': ["upDown", "rightLeft"]}
 
                 new_bug = False
 
                 bugDict['behaviours'] = behaveList
 
-
-                #print json.dumps(bugDict)
+                # print json.dumps(bugDict)
 
                 return json.dumps(bugDict)
 
 
 MyWebserver().start()
-
-''' def POST(self,dirr):
-
-
-        web.header('Access-Control-Allow-Origin', '*')
-        web.header('Access-Control-Allow-Credentials', 'true')
-
-
-        global new_bug
-        global data
-
-        if dirr == "tag/greenbeetle":#gonna be if dirr[:3] == 'pos':
-            data = web.data() # you can get data use this method
-
-            new_bug = True
-
-            print new_bug
-
-            return "hej brevbarare"'''
-
-'''         if not phoneList:
-                print "phone list empty"
-                phoneList.append(phoneDict)
-            elif self.ipNotInList(ip, phoneList) == True:
-                phoneList.appens(phoneDict)
-            else:'''
-
