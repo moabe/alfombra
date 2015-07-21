@@ -4,7 +4,7 @@ import json
 import platform
 import random
 
-#if platform.system() == "Windows":
+# if platform.system() == "Windows":
 #SIMULATOR_IP = "127.0.0.1"
 
 SIMULATOR_IP = "192.168.1.2"
@@ -33,21 +33,16 @@ data = ""
 
 new_bug = False
 
-
 show_tag_scanned = False
 
+behaveList = []
 
-behaveList= []
-
-bugDict ={}
+bugDict = {}
 
 
 #set start color
 
 class MyWebserver(threading.Thread):
-
-
-
     def run(self):
 
         urls = ('/(.*)', 'MyWebserver'
@@ -57,7 +52,6 @@ class MyWebserver(threading.Thread):
         app = web.application(urls, globals())
         print "gnu"
         app.run()
-
 
 
     def GET(self, dirr):
@@ -85,9 +79,7 @@ class MyWebserver(threading.Thread):
 
             ip = web.ctx['ip']
 
-            ip= str(ip[-1])
-
-
+            ip = str(ip[-1])
 
         if dirr[:3] == 'pos':
             pos = dirr[4:6]
@@ -98,31 +90,27 @@ class MyWebserver(threading.Thread):
             bug = str(data.bug)
             #{ "insect": "greenBeetle", "position": 11}
 
-            bugDict = {"insect":bug, "position": posInt}
+            bugDict = {"insect": bug, "position": posInt}
 
-            behaveList = [data.behaviour]
+            #take data.behaviour split on commas and make it into a list.
 
+            print data.behaviour
 
+            behaveList = data.behaviour.split(",")
+            del behaveList[-1]
 
+            print behaveList
 
-
-
-
-            #print bug, pos
-
-            new_bug = True
+            if bug != "":
+                new_bug = True
 
             return "hej android"
-
-
 
         if dirr == 'view':
 
 
-
             if new_bug == False:
                 return "no"
-
 
             if new_bug == True:
                 #bug = data #{ "insect": "greenBeetle", "position": 11, 'behaviours': ["upDown", "rightLeft"]}
@@ -132,15 +120,12 @@ class MyWebserver(threading.Thread):
                 bugDict['behaviours'] = behaveList
 
 
-                print json.dumps(bugDict)
+                #print json.dumps(bugDict)
 
                 return json.dumps(bugDict)
 
 
-
 MyWebserver().start()
-
-
 
 ''' def POST(self,dirr):
 
@@ -160,14 +145,6 @@ MyWebserver().start()
             print new_bug
 
             return "hej brevbarare"'''
-
-
-
-
-
-
-
-
 
 '''         if not phoneList:
                 print "phone list empty"
