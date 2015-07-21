@@ -51,7 +51,6 @@ class MyWebserver(threading.Thread):
         web.header('Access-Control-Allow-Origin', '*')
         web.header('Access-Control-Allow-Credentials', 'true')
 
-
         global new_bug
         global data
         global bugDict
