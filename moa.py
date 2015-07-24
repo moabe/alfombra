@@ -63,13 +63,17 @@ class MyWebserver(threading.Thread):
 
             data = web.input()
             bug = str(data.bug)
-            # { "insect": "greenBeetle", "position": 11}
+            exp = str(data.exp)
 
-            bugDict = {"insect": bug, "position": posInt}
+
+            bugDict = {"insect": bug, "position": posInt, "explode": exp}
+
+            print "explode: " + exp
+            print bug
 
             # take data.behaviour split on commas and make it into a list.
 
-            print data.behaviour
+            # print data.behaviour
 
             behaveList = data.behaviour.split(",")
             del behaveList[-1]
