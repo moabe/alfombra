@@ -31,6 +31,7 @@ data = ""
 new_bug = False
 
 
+
 behaveList = []
 
 bugDict = {}
@@ -56,6 +57,30 @@ class MyWebserver(threading.Thread):
         global bugDict
         global behaveList
 
+
+        if dirr[:3] == 'pre':
+            pos = dirr[4:6]
+
+            posInt = int(pos)
+
+            data = web.input()
+            bug = str(data.bug)
+
+            state = str(data.state)
+
+
+            bugDict = {"insect": bug, "position": posInt,"bugstate": state}
+
+            print "state is: " + state
+            print "pos is " + pos
+
+
+
+            # check so I didn't just send position without bug
+            if bug != "":
+                new_bug = True
+
+
         if dirr[:3] == 'pos':
             pos = dirr[4:6]
 
@@ -65,11 +90,14 @@ class MyWebserver(threading.Thread):
             bug = str(data.bug)
             exp = str(data.exp)
 
+            state = str(data.state)
 
-            bugDict = {"insect": bug, "position": posInt, "explode": exp}
 
-            print "explode: " + exp
-            print bug
+            bugDict = {"insect": bug, "position": posInt, "explode": exp , "bugstate": state}
+
+            print "state is: " + state
+            print "pos is " + pos
+
 
             # take data.behaviour split on commas and make it into a list.
 
