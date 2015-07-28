@@ -57,7 +57,9 @@ class MyWebserver(threading.Thread):
         global bugDict
         global behaveList
 
+        global ip
 
+        # android sends this get when a possition tag has been scanned.
         if dirr[:3] == 'pre':
             pos = dirr[4:6]
 
@@ -68,17 +70,19 @@ class MyWebserver(threading.Thread):
 
             state = str(data.state)
 
+            ip = web.ctx['ip']
 
-            bugDict = {"insect": bug, "position": posInt,"bugstate": state}
-
-            print "state is: " + state
-            print "pos is " + pos
-
+            ip = str(ip[-1])
 
 
             # check so I didn't just send position without bug
-            if bug != "":
-                new_bug = True
+            if bug == "":
+                bug = "preview"
+
+
+            bugDict = {"insect": bug, "position": posInt,"bugstate": state, "ip":ip}
+
+            new_bug = True
 
 
         if dirr[:3] == 'pos':
@@ -93,10 +97,10 @@ class MyWebserver(threading.Thread):
             state = str(data.state)
 
 
-            bugDict = {"insect": bug, "position": posInt, "explode": exp , "bugstate": state}
+            bugDict = {"insect": bug, "position": posInt, "explode": exp , "bugstate": state, "ip":ip}
 
-            print "state is: " + state
-            print "pos is " + pos
+            # print "state is: " + state
+            # print "pos is " + pos
 
 
             # take data.behaviour split on commas and make it into a list.
