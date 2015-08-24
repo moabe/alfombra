@@ -1,3 +1,3 @@
 # alfombra
 
-A projekt done with webpy for interakting with mobilephones with nfc reader. 
+Webserver for my project Alfombra Appliqué. 
