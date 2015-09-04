@@ -61,9 +61,9 @@ class MyWebserver(threading.Thread):
 
         # android sends this get when a possition tag has been scanned.
         if dirr[:3] == 'pre':
-            pos = dirr[4:6]
+            pos = dirr[4:]
 
-            posInt = int(pos)
+            posInt = str(pos)
 
             data = web.input()
             bug = str(data.bug)
@@ -86,9 +86,9 @@ class MyWebserver(threading.Thread):
 
 
         if dirr[:3] == 'pos':
-            pos = dirr[4:6]
+            pos = dirr[4:]
 
-            posInt = int(pos)
+            posInt = str(pos)
 
             data = web.input()
             bug = str(data.bug)
