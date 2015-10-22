@@ -17,6 +17,7 @@ print "Set SIMULATOR_IP to " + SIMULATOR_IP
 
 
 
+
 #
 # Specify IP adress of your computer here
 # to be able to access from another computer
@@ -29,8 +30,6 @@ sys.argv[1:] = [SIMULATOR_IP]
 data = ""
 
 new_bug = False
-
-
 
 behaveList = []
 
@@ -92,25 +91,27 @@ class MyWebserver(threading.Thread):
 
             data = web.input()
             bug = str(data.bug)
-            exp = str(data.exp)
+
+            rel = str(data.relation)
+
+            tinsect = str(data.tinsect)
 
             state = str(data.state)
 
-
-            bugDict = {"insect": bug, "position": posInt, "explode": exp , "bugstate": state, "ip":ip}
+            bugDict = {"insect": bug, "position": posInt,  "relation": rel, "targetinsect": tinsect , "bugstate": state, "ip":ip}
 
             # print "state is: " + state
             # print "pos is " + pos
 
-
             # take data.behaviour split on commas and make it into a list.
 
             # print data.behaviour
+            print bugDict
 
             behaveList = data.behaviour.split(",")
             del behaveList[-1]
 
-            print behaveList
+
 
             # check so I didn't just send position without bug
             if bug != "":
