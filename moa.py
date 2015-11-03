@@ -11,6 +11,9 @@ SIMULATOR_IP = "192.168.1.2"
 
 
 # else:
+
+
+
 #     SIMULATOR_IP = "10.42.0.1"
 
 print "Set SIMULATOR_IP to " + SIMULATOR_IP
@@ -23,7 +26,7 @@ print "Set SIMULATOR_IP to " + SIMULATOR_IP
 # otherwise, localhost is fine (127.0.0.1)
 #
 sys.argv[1:] = [SIMULATOR_IP]
-#sys.argv[1:] = ["192.168.2.3"] 
+#sys.argv[1:] = ["192.168.2.3"]
 
 
 data = ""
